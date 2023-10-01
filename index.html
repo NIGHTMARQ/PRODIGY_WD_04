@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <title>Vishal Vishwakarma - Web Developer Portfolio</title>
+    <style>
+        /* styles.css */
+
+        /* Preloader styles */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide scroll sections by default */
+.scroll-section {
+    display: none;
+}
+
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Define background and text styles */
+body {
+    margin: 0;
+    background: #f8f8f8;
+    font-family: 'Serif', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Make the thumb (the draggable part) transparent */
+}
+
+/* Navigation Bar styles */
+nav {
+    background: #fff;
+    color: #fff;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 20px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #222;
+    font-weight: bold;
+    font-size: 16px;
+}
+nav a:hover {
+    color: #37b1da;
+    background-color: #3a33a2;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+section {
+    height: 100vh; /* 100% of the viewport height */
+    background-color: #f8f8f8; /* Set your desired background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Home Section styles */
+.hero {
+    text-align: center;
+    padding: 0px;
+    background-color: #fff;
+    background-image: url('./OIP.jpg'); 
+    background-size: cover; 
+    background-position: 
+    center; background-repeat: no-repeat;
+    height: 100%;
+}
+
+.hero h1{
+    opacity: 1;
+    -webkit-transition: 1.75s ease-out;
+    transition: 1.75s ease-out;
+    font-size: calc(80vw / 10.4);
+    color: #3a33a2;
+    line-height: 1.34;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 2px 2px 2px black;
+    padding-top: 250px;
+}
+
+h1.animate-up, p.animate-up {
+    transform: translateY(-50px);
+}
+
+.hero p{
+    position: absolute;
+    opacity: 1;
+    -webkit-transition: 1.75s ease-out;
+    transition: 1.75s ease-out;
+    font-size: calc(80vw / 14.4);
+    color: #f4c9cf;
+    line-height: 1.34;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
+
+/* About Me Section styles */
+.about-me {
+    padding: 30px;
+        background-color: #f2f2f2; /* Light gray background */
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+        text-align: left; /* Align text to the left */
+        font-family: Arial, sans-serif;
+        margin: 20px auto; /* Center the section horizontally */
+        max-width: 800px;
+}
+
+.about-me h2 {
+    font-size: 24px;
+        font-weight: bold;
+        color: #333; /* Dark text color */
+        margin-bottom: 20px;
+}
+
+.about-me p {
+    font-size: 14px;
+        color: #555; /* Slightly darker text color */
+        margin-bottom: 15px;
+        line-height: 1.6;
+}
+
+.about-me ul {
+    list-style: disc;
+        margin-left: 30px; /* Create an indentation for the list */
+        color: #555;
+}
+.about-me ul li {
+        margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+        .about-me {
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .about-me h2 {
+            font-size: 24px;
+        }
+    }
+
+#Skills {
+    background-color: #fff;
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+@media (min-width: 768px) {
+    .project {
+        width: 45%; /* On larger screens, use 45% width for each project */
+        margin: 20px; /* Reset margin for spacing */
+    }
+}
+/* Portfolio Section styles */
+.portfolio {
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.project {
+    width: 100%; 
+    height: 7rem;
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.project img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.project h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.project p {
+    font-size: 16px;
+}
+
+/* Contact Section styles */
+.contact {
+    padding: 50px;
+    text-align: center;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: inherit;
+}
+
+.contact input, .contact textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.contact button {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact button:hover {
+    background: #444;
+}
+
+/* Footer styles */
+footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+/* Add this to your CSS */
+.scroll-section.active {
+    display: block;
+}
+
+.container-xl {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    justify-content: center;
+}
+
+.col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+.col-md-4 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.col-md-4 h3 {
+    text-align: left;
+}
+
+.col-md-7 h2{
+    text-align: center !important;
+    padding-bottom: 2rem;
+    font-weight: 800;
+}
+
+.progress {
+    height: 8px;
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0.05);
+    overflow: visible;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 1.5rem;
+    overflow: hidden;
+    font-size: 0.75rem;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+}
+
+.progress-bar {
+    background-color: #37b1da;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    transition: width 0.6s ease;
+    width: var(--progress-width); /* Use the custom property for width */
+}
+
+.progress-bar span {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #d5c455;
+}
+
+.progress-bar:after {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: calc(var(--progress-width) * 0.34);
+    height: calc(var(--progress-width) * 0.34);
+    content: attr(data-progress);
+    background: #d5c455;
+    border-radius: 2px;
+    opacity: 0;
+}
+
+
+h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+<section id="home" class="scroll-section">
+    <div class="hero">
+        <h1>Vishal Vishwakarma</h1>
+        <p>Passionate Web Developer</p>
+    </div>
+</section>
+
+<!-- About Me Section -->
+<section id="about" class="scroll-section">
+    <div class="about-me">
+        <h2>About Me</h2>
+        <p>Hello, I'm Vishal Vishwakarma, a passionate web developer currently on a journey of academic and professional growth. I'm dedicated to honing my skills in web development as I pursue my post-graduation studies in Computer Applications at Madan Mohan Malviya University.<br> My journey into the world of web development began during my undergraduate years when I was captivated by the power of technology to transform ideas into dynamic, user-friendly websites. <br>
+
+            As a lifelong learner, I am committed to staying up-to-date with the latest web development trends and technologies. My academic pursuits have equipped me with a solid foundation in programming languages such as HTML, CSS, and JavaScript, and I'm constantly exploring new frameworks and tools to expand my knowledge. <br>
+            
+            During my academic journey, I've had the opportunity to collaborate on exciting web projects, which have not only sharpened my technical skills but also deepened my appreciation for creating engaging online experiences. I'm particularly passionate about user interface design, and I thrive on crafting intuitive and visually appealing websites that leave a lasting impression. <br>
+            
+            Apart from my academic endeavors, I enjoy being an active member of the web development community. Whether it's participating in hackathons, contributing to open-source projects, or attending tech meetups, I find inspiration and motivation in connecting with fellow developers who share my enthusiasm for innovation. <br>
+            
+            In my free time, you can often find me experimenting with new coding challenges, exploring emerging web technologies, or simply unwinding with a good cup of coffee and a coding book. I believe that the web is an ever-evolving canvas for creativity, and I'm excited to continue my journey as a web developer, contributing to the digital landscape one project at a time. <br>
+            
+            If you'd like to discuss a project, collaborate on an exciting opportunity, or simply share your thoughts on web development, please feel free to get in touch. I'm always eager to connect with like-minded individuals who are as passionate about web development as I am.  <br>
+            
+            Thank you for visiting my portfolio, and I look forward to embarking on this exciting web development journey together!
+        </p>
+    </div>
+</section>
+
+<section id="Skills" class="scroll-section">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-7 text-center">
+                <h2>My Skills</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>HTML5</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 90%;">
+                        <span>90%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>CSS3</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 90%;">
+                        <span>90%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Javascript</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 90%"  data-progress="90">
+                        <span>90%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>React</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 95%" data-progress="95">
+                        <span>95%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Webflow</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 85%;" data-progress="95">
+                        <span>85%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Node.js</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 90%;"  data-progress="90">
+                        <span>90%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>tailwind</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 70%;"  data-progress="70">
+                        <span>70%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>figma</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 80%;"  data-progress="80">
+                        <span>80%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>SEO</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="--progress-width: 80%;"  data-progress="80">
+                        <span>80%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="scroll-section">
+    <div class="portfolio">
+        <h2>Portfolio</h2>
+        <div class="project">
+            <img src="project1.jpg" alt="Project 1">
+            <h3><a href="">Weatherly</a></h3>
+            <p>Weatherly, your go-to weather website for accurate and up-to-date weather information. Whether you're planning your day, a weekend getaway, or a vacation, Weatherly has you covered with detailed weather forecasts and essential weather data.</p>
+        </div>
+        <div class="project">
+            <img src="project2.jpg" alt="Project 2">
+            <h3><a href="">T-OUR</a></h3>
+            <p>Are you ready to embark on your next adventure? Look no further than T-OUR, your go-to platform for hassle-free flight bookings and travel planning. At T-OUR, we are dedicated to making your travel dreams come true, one flight at a time.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="scroll-section">
+    <div class="contact">
+        <h2>Contact Me</h2>
+        <p>Feel free to get in touch with me:</p>
+        <form>
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <textarea placeholder="Your Message"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Vishal - Web Developer</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <body>
+        <script>
+// script.js
+const FLAG_M = false;
+
+// Wait for the page to load
+window.addEventListener("load", function () {
+    // Hide the preloader when the page is fully loaded
+    const preloader = document.querySelector(".preloader");
+    preloader.style.display = "none";
+
+    // Initialize ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Create a ScrollTrigger for each section to control visibility
+    const scrollSections = document.querySelectorAll(".scroll-section");
+
+    scrollSections.forEach((section, index) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top bottom",
+            end: "top bottom", 
+            markers: FLAG_M,
+            toggleClass: "active", // Add a class to the section when it's in the viewport
+            onEnter: () => {
+                section.classList.add("active");
+            },
+            onLeaveBack: () => {
+                section.classList.remove("active");
+            },
+        });
+    });
+
+    // Your other GSAP animations and ScrollTrigger setups go here...
+    const animation = gsap.fromTo(
+        'h1',
+        { y: 0 }, 
+        { y: -50, ease: 'power1.out' } 
+    );
+
+    // ScrollTrigger for the section
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+        trigger: 'home', 
+        start: 'top 50%', 
+        end: 'bottom top', 
+        animation: animation, 
+        scrub: true, 
+        markers: FLAG_M, // markers for debugging
+    });
+
+
+});
+
+
+
+    </script>
+</body>
+</body>
+</html>
